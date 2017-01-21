@@ -1,0 +1,21 @@
+{
+	"name": "lib16/graphics",
+	"description": "Intended for use with lib16 SVG Builder.",
+	"keywords": ["colors", "paths", "polygon"],
+	"homepage" : "https://github.com/lib16/graphics-php",
+	"license": "MIT",
+	"require": {
+		"php": ">=7.0",
+		"lib16/utils": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Lib16\\Graphics\\": "src/"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4": {
+			"Lib16\\Graphics\\Tests\\" : "tests/"
+		}
+	}
+}
