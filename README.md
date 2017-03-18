@@ -1,4 +1,4 @@
-#`lib16/graphics-php`
+# `lib16/graphics-php`
 
 Intended for use with lib16 SVG Builder.
 
