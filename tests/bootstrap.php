@@ -1,0 +1,21 @@
+<?php
+require_once 'vendor/autoload.php';
+require_once 'src/colors/Colors.php';
+require_once 'src/colors/Colors8Bit.php';
+require_once 'src/geometry/Angle.php';
+require_once 'src/geometry/BezierPath.php';
+require_once 'src/geometry/Command.php';
+require_once 'src/geometry/Path.php';
+require_once 'src/geometry/PathCommands.php';
+require_once 'src/geometry/Point.php';
+require_once 'src/geometry/Points.php';
+require_once 'src/geometry/pathcommands/Arc.php';
+require_once 'src/geometry/pathcommands/ClosePath.php';
+require_once 'src/geometry/pathcommands/CubicCurveTo.php';
+require_once 'src/geometry/pathcommands/HorizontalLineTo.php';
+require_once 'src/geometry/pathcommands/LineTo.php';
+require_once 'src/geometry/pathcommands/MoveTo.php';
+require_once 'src/geometry/pathcommands/QuadraticCurveTo.php';
+require_once 'src/geometry/pathcommands/SmoothCubicCurveTo.php';
+require_once 'src/geometry/pathcommands/SmoothQuadraticCurveTo.php';
+require_once 'src/geometry/pathcommands/VerticalLineTo.php';

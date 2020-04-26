@@ -1,5 +1,4 @@
 <?php
-
 namespace Lib16\Graphics\Geometry\PathCommands;
 
 use Lib16\Graphics\Geometry\Command;
@@ -7,16 +6,19 @@ use Lib16\Utils\NumberFormatter;
 
 final class HorizontalLineTo extends Command
 {
-	private $x;
 
-	public function __construct(float $x)
-	{
-		$this->points = [];
-		$this->x = $x;
-	}
+    private $x;
 
-	public function toSvg(NumberFormatter $formatter, NumberFormatter $degreeFormatter): string
-	{
-		return ($this->relative ? "h " : "H ") . $formatter->format($this->x);
-	}
+    public function __construct(float $x)
+    {
+        $this->points = [];
+        $this->x = $x;
+    }
+
+    public function toSvg(
+        NumberFormatter $formatter,
+        NumberFormatter $degreeFormatter
+    ): string {
+        return $this->cmd('h', 'H') . $formatter->format($this->x);
+    }
 }

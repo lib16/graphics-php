@@ -1,62 +1,64 @@
 # `lib16/graphics-php`
-
 Intended for use with lib16 SVG Builder.
 
+[![Build Status](https://travis-ci.org/lib16/graphics-php.svg?branch=master)](https://travis-ci.org/lib16/graphics-php)
+
 ## Installation with Composer
+This package is available on [packagist](https://packagist.org/packages/lib16/graphics), so you can use [Composer](https://getcomposer.org) to install it.
+Run the following command in your shell:
 
-Add the following to your project's `composer.json` file:
-```json
-"require": {
-    "lib16/graphics": "^1.0"
-}
+```
+composer require lib16/graphics
 ```
 
-Run `composer update`
-
-Include Composer's `autoload.php`:
-```php
-require_once 'vendor/autoload.php';
-```
-
-## Basic example
+## Basic Usage
 ```php
 <?php
 require_once 'vendor/autoload.php';
 
 use HoffmannOSS\Arrays\Arrays;
 use Lib16\Utils\NumberFormatter;
-use Lib16\Graphics\Geometry\{Angle, Point, Points, Path};
+use Lib16\Graphics\Geometry\ {
+    Angle,
+    Point,
+    Points,
+    Path
+};
 
 $center1 = new Point(100, 150);
 $center2 = new Point(80, 290);
 $center3 = new Point(210, 290);
 
 $star = Points::star($center3, 7, 40, 40 * Points::STAR_RADIUS_7_3);
-$rect = Points::rectangle($center3->copy()->translate(-50, -52), 100, 100);
+$rect = Points::rectangle(
+    $center3->copy()->translate(-50, -52),
+    100,
+    100
+);
 Points::skewX($center3, Angle::byDegrees(-30), $star, $rect);
 Arrays::reverse($star);
 
 $path = (new Path())
-        ->star(new Point(50, 50), 5, 40, 40 * Points::STAR_RADIUS_5_2)
-        ->star(new Point(150, 50), 8, 40 * Points::STAR_RADIUS_8_3, 40)
-        ->star(new Point(250, 50), 6, 30, 40, 40)
-        ->star($center1, 6, 70)
-        ->ccw()
-        ->ellipse($center1, 60, 20, Angle::byDegrees(30))
-        ->ellipse($center1, 60, 20, Angle::byDegrees(90))
-        ->ellipse($center1, 60, 20, Angle::byDegrees(150))
-        ->cw()
-        ->rectangle(new Point(170, 95), 110, 110)
-        ->ccw()
-        ->roundedRectangle(new Point(175, 100), 100, 100, 20)
-        ->cw()
-        ->circle(new Point(225, 150), 45)
-        ->sector($center2, Angle::byDegrees(30), Angle::byDegrees(175), 50)
-        ->sector($center2, Angle::byDegrees(290), Angle::byDegrees(325), 50)
-        ->ringSector($center2, Angle::byDegrees(175), Angle::byDegrees(275), 60, 50)
-        ->polygon($rect)
-        ->polygon($star)
-        ->toSvg(new NumberFormatter(4), new NumberFormatter(2));
+    ->star(new Point(50, 50), 5, 40, 40 * Points::STAR_RADIUS_5_2)
+    ->star(new Point(150, 50), 8, 40 * Points::STAR_RADIUS_8_3, 40)
+    ->star(new Point(250, 50), 6, 30, 40, 40)
+    ->star($center1, 6, 70)
+    ->ccw()
+    ->ellipse($center1, 60, 20, Angle::byDegrees(30))
+    ->ellipse($center1, 60, 20, Angle::byDegrees(90))
+    ->ellipse($center1, 60, 20, Angle::byDegrees(150))
+    ->cw()
+    ->rectangle(new Point(170, 95), 110, 110)
+    ->ccw()
+    ->roundedRectangle(new Point(175, 100), 100, 100, 20)
+    ->cw()
+    ->circle(new Point(225, 150), 45)
+    ->sector($center2, Angle::byDegrees(30), Angle::byDegrees(175), 50)
+    ->sector($center2, Angle::byDegrees(290), Angle::byDegrees(325), 50)
+    ->ringSector($center2, Angle::byDegrees(175), Angle::byDegrees(275), 60, 50)
+    ->polygon($rect)
+    ->polygon($star)
+    ->toSvg(new NumberFormatter(4), new NumberFormatter(2));
 
 
 
