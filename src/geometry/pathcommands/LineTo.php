@@ -19,6 +19,6 @@ final class LineTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('l', 'L') . $this->points[0]->toSvg($formatter);
+        return $this->letter('l', 'L') . $this->points[0]->toSvg($formatter);
     }
 }

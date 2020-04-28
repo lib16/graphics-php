@@ -18,49 +18,38 @@ require_once 'vendor/autoload.php';
 
 use HoffmannOSS\Arrays\Arrays;
 use Lib16\Utils\NumberFormatter;
-use Lib16\Graphics\Geometry\ {
-    Angle,
-    Point,
-    Points,
-    Path
-};
+use Lib16\Graphics\Geometry\VectorGraphics as G;
 
-$center1 = new Point(100, 150);
-$center2 = new Point(80, 290);
-$center3 = new Point(210, 290);
+$center1 = G::point(100, 150);
+$center2 = G::point(80, 290);
+$center3 = G::point(210, 290);
 
-$star = Points::star($center3, 7, 40, 40 * Points::STAR_RADIUS_7_3);
-$rect = Points::rectangle(
-    $center3->copy()->translate(-50, -52),
-    100,
-    100
-);
-Points::skewX($center3, Angle::byDegrees(-30), $star, $rect);
+$star = G::star($center3, 7, 40, 40 * G::STAR_RADIUS_7_3);
+$rect = G::rectangle($center3->copy()->translate(-50, -52), 100, 100);
+G::skewX($center3, G::deg(-30), $star, $rect);
 Arrays::reverse($star);
 
-$path = (new Path())
-    ->star(new Point(50, 50), 5, 40, 40 * Points::STAR_RADIUS_5_2)
-    ->star(new Point(150, 50), 8, 40 * Points::STAR_RADIUS_8_3, 40)
-    ->star(new Point(250, 50), 6, 30, 40, 40)
+$path = G::path()
+    ->star(G::point(50, 50), 5, 40, 40 * G::STAR_RADIUS_5_2)
+    ->star(G::point(150, 50), 8, 40 * G::STAR_RADIUS_8_3, 40)
+    ->star(G::point(250, 50), 6, 30, 40, 40)
     ->star($center1, 6, 70)
     ->ccw()
-    ->ellipse($center1, 60, 20, Angle::byDegrees(30))
-    ->ellipse($center1, 60, 20, Angle::byDegrees(90))
-    ->ellipse($center1, 60, 20, Angle::byDegrees(150))
+    ->ellipse($center1, 60, 20, G::deg(30))
+    ->ellipse($center1, 60, 20, G::deg(90))
+    ->ellipse($center1, 60, 20, G::deg(150))
     ->cw()
-    ->rectangle(new Point(170, 95), 110, 110)
+    ->rectangle(G::point(170, 95), 110, 110)
     ->ccw()
-    ->roundedRectangle(new Point(175, 100), 100, 100, 20)
+    ->roundedRectangle(G::point(175, 100), 100, 100, 20)
     ->cw()
-    ->circle(new Point(225, 150), 45)
-    ->sector($center2, Angle::byDegrees(30), Angle::byDegrees(175), 50)
-    ->sector($center2, Angle::byDegrees(290), Angle::byDegrees(325), 50)
-    ->ringSector($center2, Angle::byDegrees(175), Angle::byDegrees(275), 60, 50)
+    ->circle(G::point(225, 150), 45)
+    ->sector($center2, G::deg(30), G::deg(175), 50)
+    ->sector($center2, G::deg(290), G::deg(325), 50)
+    ->ringSector($center2, G::deg(175), G::deg(275), 60, 50)
     ->polygon($rect)
     ->polygon($star)
     ->toSvg(new NumberFormatter(4), new NumberFormatter(2));
-
-
 
 header('Content-type: image/svg+xml');
 print '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360">';

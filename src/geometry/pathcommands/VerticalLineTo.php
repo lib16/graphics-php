@@ -19,6 +19,6 @@ final class VerticalLineTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('v', 'V') . $formatter->format($this->y);
+        return $this->letter('v', 'V') . $formatter->format($this->y);
     }
 }

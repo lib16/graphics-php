@@ -10,14 +10,12 @@ class Angle
 
     public function __construct(float $radians)
     {
-        if (! is_null($radians)) {
-            $this->set($radians);
-        }
+        $this->set($radians);
     }
 
     public static function byDegrees(float $degrees): Angle
     {
-        return new Angle(deg2rad($degrees));
+        return new Angle(\deg2rad($degrees));
     }
 
     public function copy(): Angle

@@ -19,6 +19,6 @@ final class MoveTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('m', 'M') . $this->points[0]->toSvg($formatter);
+        return $this->letter('m', 'M') . $this->points[0]->toSvg($formatter);
     }
 }

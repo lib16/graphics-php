@@ -64,7 +64,7 @@ final class Arc extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('a', 'A')
+        return $this->letter('a', 'A')
             . $formatter->format($this->rx)
             . ' '
             . $formatter->format($this->ry)

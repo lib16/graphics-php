@@ -19,3 +19,4 @@ require_once 'src/geometry/pathcommands/VerticalLineTo.php';
 require_once 'src/geometry/PathCommands.php';
 require_once 'src/geometry/Path.php';
 require_once 'src/geometry/BezierPath.php';
+require_once 'src/geometry/VectorGraphics.php';

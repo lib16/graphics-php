@@ -19,6 +19,6 @@ final class HorizontalLineTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('h', 'H') . $formatter->format($this->x);
+        return $this->letter('h', 'H') . $formatter->format($this->x);
     }
 }

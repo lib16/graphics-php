@@ -24,7 +24,7 @@ final class CubicCurveTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('c', 'C')
+        return $this->letter('c', 'C')
             . $this->points[0]->toSvg($formatter)
             . ' '
             . $this->points[1]->toSvg($formatter)

@@ -20,7 +20,7 @@ final class QuadraticCurveTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('q', 'Q')
+        return $this->letter('q', 'Q')
             . $this->points[0]->toSvg($formatter)
             . ' '
             . $this->points[1]->toSvg($formatter);

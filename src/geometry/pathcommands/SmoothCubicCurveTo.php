@@ -20,7 +20,7 @@ final class SmoothCubicCurveTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('s', 'S')
+        return $this->letter('s', 'S')
             . $this->points[0]->toSvg($formatter)
             . ' '
             . $this->points[1]->toSvg($formatter);

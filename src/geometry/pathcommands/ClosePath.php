@@ -16,6 +16,6 @@ final class ClosePath extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('z', 'Z', '');
+        return $this->letter('z', 'Z', '');
     }
 }

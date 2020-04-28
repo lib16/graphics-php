@@ -19,6 +19,6 @@ final class SmoothQuadraticCurveTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->cmd('t', 'T') . $this->points[0]->toSvg($formatter);
+        return $this->letter('t', 'T') . $this->points[0]->toSvg($formatter);
     }
 }

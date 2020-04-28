@@ -31,7 +31,7 @@ abstract class Command
         NumberFormatter $degreeFormatter
     ): string;
 
-    protected function cmd(
+    protected function letter(
         string $relativeCommand,
         string $absoluteCommand,
         string $whitespace = ' '
