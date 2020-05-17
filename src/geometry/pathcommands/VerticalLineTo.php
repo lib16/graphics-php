@@ -2,6 +2,7 @@
 namespace Lib16\Graphics\Geometry\PathCommands;
 
 use Lib16\Graphics\Geometry\Command;
+use Lib16\Graphics\Geometry\PointSet;
 use Lib16\Utils\NumberFormatter;
 
 final class VerticalLineTo extends Command
@@ -11,7 +12,7 @@ final class VerticalLineTo extends Command
 
     public function __construct(float $y)
     {
-        $this->points = [];
+        $this->PointSet = PointSet::create();
         $this->y = $y;
     }
 
@@ -19,6 +20,6 @@ final class VerticalLineTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->letter('v', 'V') . $formatter->format($this->y);
+        return $this->letter('v ', 'V ') . $formatter->format($this->y);
     }
 }

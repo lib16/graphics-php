@@ -2,6 +2,7 @@
 namespace Lib16\Graphics\Geometry\PathCommands;
 
 use Lib16\Graphics\Geometry\Command;
+use Lib16\Graphics\Geometry\PointSet;
 use Lib16\Utils\NumberFormatter;
 
 final class HorizontalLineTo extends Command
@@ -11,7 +12,7 @@ final class HorizontalLineTo extends Command
 
     public function __construct(float $x)
     {
-        $this->points = [];
+        $this->PointSet = PointSet::create();
         $this->x = $x;
     }
 
@@ -19,6 +20,6 @@ final class HorizontalLineTo extends Command
         NumberFormatter $formatter,
         NumberFormatter $degreeFormatter
     ): string {
-        return $this->letter('h', 'H') . $formatter->format($this->x);
+        return $this->letter('h ', 'H ') . $formatter->format($this->x);
     }
 }

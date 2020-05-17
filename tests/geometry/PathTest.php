@@ -56,8 +56,8 @@ class PathTest extends TestCase
     public function testRectangle2()
     {
         $this->assertEqualSvg(
-            'M 10,100 H 110 V 20 H 10 Z',
-            G::path()->ccw()->rectangle(p(10, 20), 100, 80)
+            'M 110,20 H 10 V 100 H 110 Z',
+            G::path()->rectangle(p(10, 20), 100, 80, true)
         );
     }
 
@@ -68,7 +68,7 @@ class PathTest extends TestCase
             'V 90 A 10 10 0 0 1 100,100 ' .
             'H 20 A 10 10 0 0 1 10,90 ' .
             'V 30 A 10 10 0 0 1 20,20 Z',
-            G::path()->cw()->roundedRectangle(p(10, 20), 100, 80, 10)
+            G::path()->roundedRectangle(p(10, 20), 100, 80, 10)
         );
     }
 
@@ -79,7 +79,7 @@ class PathTest extends TestCase
             'V 90 A 10 10 0 0 0 20,100 ' .
             'H 100 A 10 10 0 0 0 110,90 ' .
             'V 30 A 10 10 0 0 0 100,20 Z',
-            G::path()->ccw()->roundedRectangle(p(10, 20), 100, 80, 10)
+            G::path()->roundedRectangle(p(10, 20), 100, 80, 10, true)
         );
     }
 
@@ -95,7 +95,7 @@ class PathTest extends TestCase
     {
         $this->assertEqualSvg(
             'M 110,20 A 100 100 0 0 0 -90,20 A 100 100 0 0 0 110,20',
-            G::path()->ccw()->circle(p(10, 20), 100)
+            G::path()->circle(p(10, 20), 100, true)
         );
     }
 
@@ -111,7 +111,7 @@ class PathTest extends TestCase
     {
         $this->assertEqualSvg(
             'M 10,120 A 100 50 90 0 0 10,-80 A 100 50 90 0 0 10,120',
-            G::path()->ccw()->ellipse(p(10, 20), 100, 50, a(90))
+            G::path()->ellipse(p(10, 20), 100, 50, a(90), true)
         );
     }
 
@@ -127,7 +127,7 @@ class PathTest extends TestCase
     {
         $this->assertEqualSvg(
             'M 10,-80 L -90,20 L 10,120 L 110,20 Z',
-            G::path()->ccw()->star(p(10, 20), 4, 100)
+            G::path()->star(p(10, 20), -4, 100)
         );
     }
 
@@ -143,7 +143,7 @@ class PathTest extends TestCase
     {
         $this->assertEqualSvg(
             'M 10,-80 L -40,20 L 10,120 L 60,20 Z',
-            G::path()->ccw()->star(p(10, 20), 2, 100, 50)
+            G::path()->star(p(10, 20), -2, 100, 50)
         );
     }
 
@@ -159,7 +159,7 @@ class PathTest extends TestCase
     {
         $this->assertEqualSvg(
             'M 10,-80 L -40,20 L 10,120 L 60,20 Z',
-            G::path()->ccw()->star(p(10, 20), 1, 100, 50, 100, 50)
+            G::path()->star(p(10, 20), -1, 100, 50, 100, 50)
         );
     }
 
@@ -183,7 +183,7 @@ class PathTest extends TestCase
     {
         $this->assertEqualSvg(
             'M 10,20 L ' . self::$pR1[1] . ' A 50 50 0 0 0 ' . self::$pR1[0] . ' Z',
-            G::path()->ccw()->sector(p(10, 20), self::$a[0], self::$a[1], 50)
+            G::path()->sector(p(10, 20), self::$a[1], self::$a[0], 50)
         );
     }
 
@@ -210,18 +210,44 @@ class PathTest extends TestCase
         $this->assertEqualSvg(
             'M ' . self::$pR1[1] . ' A 50 50 0 0 0 ' . self::$pR1[0] . ' ' .
             'L ' . self::$pR2[0] . ' A 25 25 0 0 1 ' . self::$pR2[1] . ' Z',
-            G::path()->ccw()->ringSector(p(10, 20), self::$a[0], self::$a[1], 50, 25)
+            G::path()->ringSector(p(10, 20), self::$a[1], self::$a[0], 50, 25)
+        );
+    }
+
+    public function testC()
+    {
+        $this->assertEqualSvg(
+            'C -1,-1 1,1 1,2',
+            G::path()->c(p(-1, -1), p(1, 1), p(1, 2))
+        );
+    }
+
+    public function testS()
+    {
+        $this->assertEqualSvg(
+            'S 1,1 1,2',
+            G::path()->s(p(1, 1), p(1, 2))
+        );
+    }
+
+    public function testQ()
+    {
+        $this->assertEqualSvg(
+            'Q 0,0 0,1',
+            G::path()->q(p(0, 0), p(0, 1))
+        );
+    }
+
+    public function testT()
+    {
+        $this->assertEqualSvg(
+            'T 0,1',
+            G::path()->t(p(0, 1))
         );
     }
 
     public function assertEqualSvg(string $expected, Path $path)
     {
         $this->assertEquals($expected, $path->toSvg(self::$f, self::$f));
-    }
-
-    public function testGetCommands()
-    {
-        $command = G::path()->rectangle(G::p(0, 0), 10, 10)->getCommands()[0];
-        $this->assertEquals(false, $command->isRelative());
     }
 }

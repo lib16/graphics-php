@@ -10,8 +10,7 @@
 	"license" : "MIT",
 	"require" : {
 		"php" : ">=7.0",
-		"lib16/utils" : "^1.0",
-		"hoffmann-oss/arrays" : "^1.0"
+		"lib16/utils" : "^1.0"
 	},
 	"autoload" : {
 		"psr-4" : {

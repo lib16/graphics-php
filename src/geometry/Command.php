@@ -6,24 +6,14 @@ use Lib16\Utils\NumberFormatter;
 abstract class Command
 {
 
-    protected $points;
+    protected $PointSet;
 
     protected $relative = false;
-
-    public function getPoints(): array
-    {
-        return $this->points;
-    }
 
     public function rel(): self
     {
         $this->relative = true;
         return $this;
-    }
-
-    public function isRelative(): bool
-    {
-        return $this->relative;
     }
 
     public abstract function toSvg(
@@ -33,9 +23,8 @@ abstract class Command
 
     protected function letter(
         string $relativeCommand,
-        string $absoluteCommand,
-        string $whitespace = ' '
+        string $absoluteCommand
     ): string {
-        return ($this->relative ? $relativeCommand : $absoluteCommand) . $whitespace;
+        return ($this->relative ? $relativeCommand : $absoluteCommand);
     }
 }

@@ -3,9 +3,14 @@ namespace Lib16\Graphics\Geometry;
 
 class VectorGraphics
 {
-    public static function deg(float $degrees): Angle
+    public static function angle(float $degrees): Angle
     {
         return Angle::byDegrees($degrees);
+    }
+
+    public static function deg(float $degrees): Angle
+    {
+        return static::angle($degrees);
     }
 
     public static function rad(float $radians): Angle
@@ -28,127 +33,122 @@ class VectorGraphics
         return new Path();
     }
 
-    public static function bezierPath(): BezierPath
-    {
-        return new BezierPath();
-    }
-
     public static function rectangle(
         Point $corner,
         float $width,
-        float $height
-    ): array {
-        return Points::rectangle($corner, $width, $height);
-    }
-
-    public static function roundedRectangle(
-        Point $corner,
-        float $width,
         float $height,
-        float $radius
-    ): array {
-        return Points::roundedRectangle($corner, $width, $height, $radius);
+        bool $reverseRotation = false
+    ): PointSet {
+        return PointSet::rectangle($corner, $width, $height, $reverseRotation);
     }
 
-    const STAR_RADIUS_5_2 = Points::STAR_RADIUS_5_2;
+    const STAR_RADIUS_5_2 = PointSet::STAR_RADIUS_5_2;
 
-    const STAR_RADIUS_6_2 = Points::STAR_RADIUS_6_2;
+    const STAR_RADIUS_6_2 = PointSet::STAR_RADIUS_6_2;
 
-    const STAR_RADIUS_7_2 = Points::STAR_RADIUS_7_2;
+    const STAR_RADIUS_7_2 = PointSet::STAR_RADIUS_7_2;
 
-    const STAR_RADIUS_7_3 = Points::STAR_RADIUS_7_3;
+    const STAR_RADIUS_7_3 = PointSet::STAR_RADIUS_7_3;
 
-    const STAR_RADIUS_8_2 = Points::STAR_RADIUS_8_2;
+    const STAR_RADIUS_8_2 = PointSet::STAR_RADIUS_8_2;
 
-    const STAR_RADIUS_8_3 = Points::STAR_RADIUS_8_3;
+    const STAR_RADIUS_8_3 = PointSet::STAR_RADIUS_8_3;
 
-    public static function star(Point $center, int $n, float ...$radii): array
-    {
-        return Points::star($center, $n, ...$radii);
-    }
-
-    public static function sector(
+    public static function star(
         Point $center,
-        Angle $start,
-        Angle $stop,
-        float $radius
-    ): array {
-        return Points::sector($center, $start, $stop, $radius);
+        int $n,
+        float ...$radii
+    ): PointSet {
+        return PointSet::star($center, $n, ...$radii);
     }
 
-    public static function ringSector(
-        Point $center,
-        Angle $start,
-        Angle $stop,
-        float $radius,
-        float $innerRadius
-    ): array {
-        return Points::ringSector($center, $start, $stop, $radius, $innerRadius);
-    }
-
-    public static function cross(Point $center, float $rx, float $ry): array
+    public static function innerRadiusStar(int $n, int $m): float
     {
-        return Points::cross($center, $rx, $ry);
+        return PointSet::innerRadiusStar($n, $m);
     }
 
     public static function rotate(
         Point $center,
         Angle $angle,
-        array ...$points
+        PointSet ...$pointSets
     ) {
-        Points::rotate($center, $angle, ...$points);
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->rotate($center, $angle);
+        }
     }
 
     public static function scale(
         Point $center,
         float $factor,
-        array ...$points
+        PointSet ...$pointSets
     ) {
-        Points::scale($center, $factor, ...$points);
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->scale($center, $factor);
+        }
     }
 
     public static function scaleX(
         Point $center,
         float $factor,
-        array ...$points
+        PointSet ...$pointSets
     ) {
-        Points::scaleX($center, $factor, ...$points);
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->scaleX($center, $factor);
+        }
     }
 
     public static function scaleY(
         Point $center,
         float $factor,
-        array ...$points
+        PointSet ...$pointSets
     ) {
-        Points::scaleY($center, $factor, ...$points);
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->scaleY($center, $factor);
+        }
     }
 
-    public static function skewX(Point $center, Angle $angle, array ...$points)
-    {
-        Points::skewX($center, $angle, ...$points);
+    public static function skewX(
+        Point $center,
+        Angle $angle,
+        PointSet ...$pointSets
+    ) {
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->skewX($center, $angle);
+        }
     }
 
-    public static function skewY(Point $center, Angle $angle, array ...$points)
-    {
-        Points::skewY($center, $angle, ...$points);
+    public static function skewY(
+        Point $center,
+        Angle $angle,
+        PointSet ...$pointSets
+    ) {
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->skewY($center, $angle);
+        }
     }
 
     public static function translate(
         float $deltaX,
         float $deltaY,
-        array ...$points
+        PointSet ...$pointSets
     ) {
-        Points::translate($deltaX, $deltaY, ...$points);
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->translate($deltaX, $deltaY);
+        }
     }
 
-    public static function translateX(float $deltaX, array ...$points)
+    public static function translateX(float $deltaX, PointSet ...$pointSets)
     {
-        Points::translateX($deltaX, ...$points);
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->translateX($deltaX);
+        }
     }
 
-    public static function translateY(float $deltaY, array ...$points)
+    public static function translateY(float $deltaY, PointSet ...$pointSets)
     {
-        Points::translateX($deltaY, ...$points);
+        foreach ($pointSets as &$pointSet) {
+            $pointSet->translateY($deltaY);
+        }
     }
 
 }

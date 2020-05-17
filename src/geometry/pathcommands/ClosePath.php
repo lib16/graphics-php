@@ -2,6 +2,7 @@
 namespace Lib16\Graphics\Geometry\PathCommands;
 
 use Lib16\Graphics\Geometry\Command;
+use Lib16\Graphics\Geometry\PointSet;
 use Lib16\Utils\NumberFormatter;
 
 final class ClosePath extends Command
@@ -9,7 +10,7 @@ final class ClosePath extends Command
 
     public function __construct()
     {
-        $this->points = [];
+        $this->PointSet = PointSet::create();
     }
 
     public function toSvg(

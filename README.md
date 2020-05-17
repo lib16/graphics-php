@@ -16,7 +16,6 @@ composer require lib16/graphics
 <?php
 require_once 'vendor/autoload.php';
 
-use HoffmannOSS\Arrays\Arrays;
 use Lib16\Utils\NumberFormatter;
 use Lib16\Graphics\Geometry\VectorGraphics as G;
 
@@ -24,25 +23,20 @@ $center1 = G::point(100, 150);
 $center2 = G::point(80, 290);
 $center3 = G::point(210, 290);
 
-$star = G::star($center3, 7, 40, 40 * G::STAR_RADIUS_7_3);
+$star = G::star($center3, -7, 40, 40 * G::STAR_RADIUS_7_3);
 $rect = G::rectangle($center3->copy()->translate(-50, -52), 100, 100);
 G::skewX($center3, G::deg(-30), $star, $rect);
-Arrays::reverse($star);
 
 $path = G::path()
     ->star(G::point(50, 50), 5, 40, 40 * G::STAR_RADIUS_5_2)
     ->star(G::point(150, 50), 8, 40 * G::STAR_RADIUS_8_3, 40)
     ->star(G::point(250, 50), 6, 30, 40, 40)
     ->star($center1, 6, 70)
-    ->ccw()
-    ->ellipse($center1, 60, 20, G::deg(30))
-    ->ellipse($center1, 60, 20, G::deg(90))
-    ->ellipse($center1, 60, 20, G::deg(150))
-    ->cw()
+    ->ellipse($center1, 60, 20, G::deg(30), true)
+    ->ellipse($center1, 60, 20, G::deg(90), true)
+    ->ellipse($center1, 60, 20, G::deg(150), true)
     ->rectangle(G::point(170, 95), 110, 110)
-    ->ccw()
-    ->roundedRectangle(G::point(175, 100), 100, 100, 20)
-    ->cw()
+    ->roundedRectangle(G::point(175, 100), 100, 100, 20, true)
     ->circle(G::point(225, 150), 45)
     ->sector($center2, G::deg(30), G::deg(175), 50)
     ->sector($center2, G::deg(290), G::deg(325), 50)
@@ -56,7 +50,6 @@ print '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360">';
 print '<rect x="0" y="0" width="300" height="360" fill="#2266aa" fill-opacity="0.5" />';
 print '<path d="' . $path . '" fill="#2266aa" fill-opacity="0.5" stroke="#ffffff"/>';
 print '</svg>';
-
 ```
 
 the generated SVG:

@@ -3,87 +3,93 @@ namespace Lib16\Graphics\Tests\Geometry;
 
 use Lib16\Graphics\Geometry\ {
     Angle,
-    BezierPath,
     Path,
     Point,
-    Points
+    PointSet
 };
 use Lib16\Graphics\Geometry\VectorGraphics as G;
 use PHPUnit\Framework\TestCase;
+use Lib16\Utils\NumberFormatter;
 
 class VectorGraphicsTest extends TestCase
 {
     public function test()
     {
+        $this->assertEquals(Angle::byDegrees(30), G::angle(30));
         $this->assertEquals(Angle::byDegrees(30), G::deg(30));
         $this->assertEquals(new Angle(0.2), G::rad(0.2));
         $this->assertEquals(new Point(0.1, 0.2), G::p(0.1, 0.2));
         $this->assertEquals(new Path(), G::path());
-        $this->assertEquals(new BezierPath(), G::bezierPath());
+
         $p = G::p(1.25, 2.5);
         $a = G::deg(30);
-        $a2 = G::deg(120);
+        $f = New NumberFormatter(4);
         $this->assertEquals(
-            Points::rectangle($p, 10, 5),
-            G::rectangle($p, 10, 5)
+            PointSet::rectangle($p, 10, 5)->toSvg($f),
+            G::rectangle($p, 10, 5)->toSvg($f)
         );
         $this->assertEquals(
-            Points::roundedRectangle($p, 10, 5, 0.5),
-            G::roundedRectangle($p, 10, 5, 0.5)
+            PointSet::star($p, 5, 6, 6*PointSet::STAR_RADIUS_5_2)->toSvg($f),
+            G::star($p, 5, 6, 6*G::STAR_RADIUS_5_2)->toSvg($f)
         );
-        $this->assertEquals(
-            Points::star($p, 5, 6, 6*Points::STAR_RADIUS_5_2),
-            G::star($p, 5, 6, 6*G::STAR_RADIUS_5_2)
-        );
-        $this->assertEquals(
-            Points::sector($p, $a, $a2, 1.2),
-            G::sector($p, $a, $a2, 1.2)
-        );
-        $this->assertEquals(
-            Points::ringSector($p, $a, $a2, 1.2, 0.8),
-            G::ringSector($p, $a, $a2, 1.2, 0.8)
-        );
-        $this->assertEquals(
-            Points::cross($p, 4, 8),
-            G::cross($p, 4, 8)
-        );
-        $star = Points::star($p, 5, 2, 2*G::STAR_RADIUS_5_2);
-        $box = Points::rectangle($p, 5, 5);
-        $this->assertEquals(
-            Points::rotate($p, $a, $star, $box),
-            G::rotate($p, $a, $star, $box)
-        );
-        $this->assertEquals(
-            Points::scale($p, 1.25, $star, $box),
-            G::scale($p, 1.25, $star, $box)
-        );
-        $this->assertEquals(
-            Points::scaleX($p, 1.25, $star, $box),
-            G::scaleX($p, 1.25, $star, $box)
-        );
-        $this->assertEquals(
-            Points::scaleY($p, 1.25, $star, $box),
-            G::scaleY($p, 1.25, $star, $box)
-        );
-        $this->assertEquals(
-            Points::skewX($p, $a, $star, $box),
-            G::skewX($p, $a, $star, $box)
-        );
-        $this->assertEquals(
-            Points::skewY($p, $a, $star, $box),
-            G::skewY($p, $a, $star, $box)
-        );
-        $this->assertEquals(
-            Points::translate(2, 4, $star, $box),
-            G::translate(2, 4, $star, $box)
-        );
-        $this->assertEquals(
-            Points::translateX(2, $star, $box),
-            G::translateX(2, $star, $box)
-        );
-        $this->assertEquals(
-            Points::translateY(2, $star, $box),
-            G::translateY(2, $star, $box)
-        );
+
+        $star1 = PointSet::star($p, 5, 2, 2*G::STAR_RADIUS_5_2);
+        $star2 = $star1->copy();
+        $box1 = PointSet::rectangle($p, 5, 5);
+        $box2 = $box1->copy();
+
+        $star1->rotate($p, $a);
+        $box1->rotate($p, $a);
+        G::rotate($p, $a, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->scale($p, 1.25);
+        $box1->scale($p, 1.25);
+        G::scale($p, 1.25, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->scaleX($p, 1.25);
+        $box1->scaleX($p, 1.25);
+        G::scaleX($p, 1.25, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->scaleY($p, 1.25);
+        $box1->scaleY($p, 1.25);
+        G::scaleY($p, 1.25, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->skewX($p, $a);
+        $box1->skewX($p, $a);
+        G::skewX($p, $a, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->skewY($p, $a);
+        $box1->skewY($p, $a);
+        G::skewY($p, $a, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->translate(2, 4);
+        $box1->translate(2, 4);
+        G::translate(2, 4, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->translateX(2);
+        $box1->translateX(2);
+        G::translateX(2, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
+
+        $star1->translateY(2);
+        $box1->translateY(2);
+        G::translateY(2, $star2, $box2);
+        $this->assertEquals($star1, $star2);
+        $this->assertEquals($box1, $box2);
     }
 }

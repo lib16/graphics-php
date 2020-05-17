@@ -4,6 +4,7 @@ namespace Lib16\Graphics\Tests\Geometry;
 use Lib16\Graphics\Geometry\Angle;
 use Lib16\Graphics\Geometry\Point;
 use PHPUnit\Framework\TestCase;
+use Lib16\Graphics\Geometry\PointSet;
 
 class PointTest extends TestCase
 {
@@ -149,6 +150,15 @@ class PointTest extends TestCase
             25,
             (new Point(20.5, 10))->translate(4.5, 15)
         );
+    }
+
+    public function testIterator()
+    {
+        $points = [p(0,0), p(1,0), p(2,0), p(0,1)];
+        $pointSet = new PointSet(...$points);
+        foreach ($pointSet as $i => $point) {
+            $this->assertEquals($points[$i], $point);
+        }
     }
 
     public function assertEqualCoordinates($expectedX, $expectedY, Point $point)

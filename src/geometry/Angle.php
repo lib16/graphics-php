@@ -20,12 +20,7 @@ class Angle
 
     public function copy(): Angle
     {
-        $angle = new Angle(null);
-        $angle->radians = $this->radians;
-        $angle->sin = $this->sin;
-        $angle->cos = $this->cos;
-        $angle->tan = $this->tan;
-        return $angle;
+        return clone $this;
     }
 
     public function set(float $radians): Angle
