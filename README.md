@@ -1,7 +1,7 @@
 # `lib16/graphics-php`
 Intended for use with lib16 SVG Builder.
 
-[![Build Status](https://travis-ci.org/lib16/graphics-php.svg?branch=master)](https://travis-ci.org/lib16/graphics-php)
+[![Build Status](https://travis-ci.com/lib16/graphics-php.svg?branch=master)](https://travis-ci.com/lib16/graphics-php)
 
 ## Installation with Composer
 This package is available on [packagist](https://packagist.org/packages/lib16/graphics), so you can use [Composer](https://getcomposer.org) to install it.
